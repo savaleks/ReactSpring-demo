@@ -11,14 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/athlete")
+@RequestMapping("/api/project")
 public class ProjectController {
 
     @Autowired
     private ProjectService projectService;
 
     @PostMapping("")
-    public ResponseEntity<Project> createNewAthlete(@RequestBody Project project){
+    public ResponseEntity<Project> createNewProject(@RequestBody Project project){
+        Project project1 = projectService.saveOrUpdateProject(project);
         return new ResponseEntity<Project>(project, HttpStatus.CREATED);
     }
 }
