@@ -9,8 +9,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Date;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Entity
 @Getter @Setter @NoArgsConstructor
@@ -26,7 +24,6 @@ public class Project {
     @Size(min = 1, max = 10, message = "Please use 1 to 10 characters.")
     @Column(updatable = false, unique = true)
     private String projectIdentifier;
-    private String projectAutoIdentifier = "PRO-" + ((Integer) ThreadLocalRandom.current().nextInt(1, 100000 + 1));
     @NotBlank(message = "Project description is required.")
     private String description;
     @JsonFormat(pattern = "yyyy-mm-dd")
