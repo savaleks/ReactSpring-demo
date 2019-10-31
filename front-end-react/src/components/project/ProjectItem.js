@@ -5,7 +5,7 @@ export default class ProjectItem extends Component {
         return (
             
             <div className="card text-center">
-                <div className="card-header">
+                <div className="card-header text-white bg-info">
                     Project Identifier
                 </div>
                 <div className="card-body">
@@ -16,8 +16,8 @@ export default class ProjectItem extends Component {
                     <a className="btn icon-btn btn-warning" href="#">
                     <span><i className="fas fa-trash-alt"></i></span> Delete</a>
                 </div>
-                <div className="card-footer text-muted">
-                    2 days ago
+                <div className="card-footer text-dark bg-light"><span className="badge badge-primary">
+                    2 days ago</span>
                 </div>
             </div>
             
