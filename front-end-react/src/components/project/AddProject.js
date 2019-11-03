@@ -9,11 +9,12 @@ class AddProject extends Component {
     constructor(){
         super()
         this.state={
-            "projectName":"",
-            "projectIdentifier":"",
-            "description":"",
-            "start_date":"",
-            "end_date":""
+            projectName:"",
+            projectIdentifier:"",
+            description:"",
+            start_date:"",
+            end_date:"",
+            errors: {}
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -35,7 +36,17 @@ class AddProject extends Component {
         this.props.createProject(newProject, this.props.history)
     }
 
+    // lifecycle hooks
+    componentWillReceiveProps(nextProps){
+        if (nextProps.errors) {
+            this.setState({errors: nextProps.errors});
+        }
+    }
+
     render() {
+
+        const {errors} = this.state;
+        
         return (
             <div className="container" id="spacefromtop">
                 <div className="row justify-content-center">
@@ -59,8 +70,9 @@ class AddProject extends Component {
                                             <input type="text" className="form-control" name="projectName"
                                             value={this.state.projectName}
                                             onChange={this.onChange} 
-                                            placeholder="Project Name" required/>
+                                            placeholder="Project Name"/>
                                         </div>
+                                        <p className="text-left">{errors.projectName}</p>
                                     </div>
                                     <div className="form-group">
                                         <div className="input-group mb-2">
@@ -70,8 +82,9 @@ class AddProject extends Component {
                                             <input type="text" className="form-control" name="projectIdentifier"
                                             value={this.state.projectIdentifier}
                                             onChange={this.onChange}
-                                            placeholder="Project Identifier" required/>
+                                            placeholder="Project Identifier"/>
                                         </div>
+                                        <p className="text-left">{errors.projectIdentifier}</p>
                                     </div>
 
                                     <div className="form-group">
@@ -81,8 +94,9 @@ class AddProject extends Component {
                                             </div>
                                             <textarea className="form-control" placeholder="Description" name="description"
                                             value={this.state.description}
-                                            onChange={this.onChange} required></textarea>
+                                            onChange={this.onChange}></textarea>
                                         </div>
+                                        <p className="text-left">{errors.description}</p>
                                     </div>
                                 
                                     <div className="form-group">
@@ -124,9 +138,14 @@ class AddProject extends Component {
 }
 
 AddProject.propTypes = {
-    createProject: PropTypes.func.isRequired
+    createProject: PropTypes.func.isRequired,
+    errors: PropTypes.object.isRequired
 }
 
-export default connect(null, {createProject})(AddProject)
+const mapStateToProps = state => ({
+    errors: state.errors
+});
+
+export default connect(mapStateToProps, {createProject})(AddProject)
 
 
