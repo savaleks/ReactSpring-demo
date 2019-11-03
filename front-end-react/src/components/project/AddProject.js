@@ -1,6 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {createProject} from "../../actions/projectAction";
+import "./AddProject.css"
 
-export default class AddProject extends Component {
+class AddProject extends Component {
+    
     constructor(){
         super()
         this.state={
@@ -27,13 +32,12 @@ export default class AddProject extends Component {
             "start_date":this.state.start_date,
             "end_date":this.state.end_date
         };
-        console.log(newProject);
+        this.props.createProject(newProject, this.props.history)
     }
 
     render() {
         return (
-            <div className="container">
-                <h2 className="text-center">Project Form</h2>
+            <div className="container" id="spacefromtop">
                 <div className="row justify-content-center">
                     <div className="col-12 col-md-8 col-lg-8 pb-5">
 
@@ -118,3 +122,11 @@ export default class AddProject extends Component {
         )
     }
 }
+
+AddProject.propTypes = {
+    createProject: PropTypes.func.isRequired
+}
+
+export default connect(null, {createProject})(AddProject)
+
+

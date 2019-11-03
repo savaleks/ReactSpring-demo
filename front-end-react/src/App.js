@@ -7,6 +7,7 @@ import {BrowserRouter as Router, Route } from "react-router-dom";
 import AddProject from './components/project/AddProject';
 import {Provider } from "react-redux";
 import store from './store';
+import Footer from './components/layout/Footer';
 
 function App() {
   return (
@@ -16,6 +17,9 @@ function App() {
         <Header />
         <Route exact path="/dashboard" component={Dashboard}/>
         <Route exact path="/addProject" component={AddProject}/>
+        {
+        //  <Footer/>
+        }
       </div>
     </Router>
     </Provider>
