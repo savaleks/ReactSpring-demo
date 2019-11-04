@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {createProject} from "../../actions/projectAction";
-import "./AddProject.css"
+import "./AddProject.css";
+import classnames from "classnames"
 
 class AddProject extends Component {
     
@@ -67,24 +68,31 @@ class AddProject extends Component {
                                             <div className="input-group-prepend">
                                                 <div className="input-group-text"><i className="fas fa-file-signature"></i></div>
                                             </div>
-                                            <input type="text" className="form-control" name="projectName"
+                                            <input type="text" className={classnames("form-control",{"is-invalid":errors.projectName})} 
+                                            name="projectName"
                                             value={this.state.projectName}
                                             onChange={this.onChange} 
                                             placeholder="Project Name"/>
+                                            {errors.projectName && (
+                                                <div className="invalid-feedback text-left">{errors.projectName}</div>
+                                            )}
                                         </div>
-                                        <p className="text-left">{errors.projectName}</p>
+                                        
                                     </div>
                                     <div className="form-group">
                                         <div className="input-group mb-2">
                                             <div className="input-group-prepend">
                                                 <div className="input-group-text"><i className="fas fa-barcode"></i></div>
                                             </div>
-                                            <input type="text" className="form-control" name="projectIdentifier"
+                                            <input type="text" className={classnames("form-control",{"is-invalid":errors.projectIdentifier})} 
+                                            name="projectIdentifier"
                                             value={this.state.projectIdentifier}
                                             onChange={this.onChange}
                                             placeholder="Project Identifier"/>
+                                            {errors.projectIdentifier && (
+                                                <div className="invalid-feedback text-left">{errors.projectIdentifier}</div>
+                                            )}
                                         </div>
-                                        <p className="text-left">{errors.projectIdentifier}</p>
                                     </div>
 
                                     <div className="form-group">
@@ -92,11 +100,14 @@ class AddProject extends Component {
                                             <div className="input-group-prepend">
                                                 <div className="input-group-text"><i className="far fa-comment-alt"></i></div>
                                             </div>
-                                            <textarea className="form-control" placeholder="Description" name="description"
+                                            <textarea className={classnames("form-control",{"is-invalid":errors.description})} 
+                                            placeholder="Description" name="description"
                                             value={this.state.description}
                                             onChange={this.onChange}></textarea>
+                                            {errors.description && (
+                                                <div className="invalid-feedback text-left">{errors.description}</div>
+                                            )}
                                         </div>
-                                        <p className="text-left">{errors.description}</p>
                                     </div>
                                 
                                     <div className="form-group">
