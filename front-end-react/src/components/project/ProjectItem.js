@@ -19,7 +19,7 @@ export default class ProjectItem extends Component {
                     <span><i className="fas fa-trash-alt"></i></span> Delete</a>
                 </div>
                 <div className="card-footer text-dark bg-light"><span className="badge badge-primary">
-                    2 days ago</span>
+                   created {project.created_At} </span>
                 </div>
             </div>
             

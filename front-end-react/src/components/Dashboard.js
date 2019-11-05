@@ -28,7 +28,6 @@ class Dashboard extends Component {
                         <ProjectItem key={project.id} project={project}/>
                     ))}
                 </div><br/>
-
             </div>
         )
     }

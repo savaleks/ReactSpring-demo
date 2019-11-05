@@ -15,6 +15,7 @@ class AddProject extends Component {
             description:"",
             start_date:"",
             end_date:"",
+            created_At: "",
             errors: {}
         };
         this.onChange = this.onChange.bind(this);
