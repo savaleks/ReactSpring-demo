@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from "react-router-dom";
 
 export default class ProjectItem extends Component {
     render() {
@@ -14,7 +15,7 @@ export default class ProjectItem extends Component {
                     <h5 className="card-title">{project.projectName}</h5>
                     <p className="card-text">{project.description}</p>
                     <a href="#" className="btn btn-primary">Project Board</a>&nbsp;
-                    <a href="#" className="btn btn-success"><i className="fas fa-pen"></i> Update</a>&nbsp;
+                    <Link to={`/updateProject/${project.projectIdentifier}`} className="btn btn-success"><i className="fas fa-pen"></i> Update</Link>&nbsp;
                     <a className="btn icon-btn btn-warning" href="#">
                     <span><i className="fas fa-trash-alt"></i></span> Delete</a>
                 </div>
