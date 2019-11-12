@@ -14,13 +14,17 @@ class UpdateProject extends Component {
             projectIdentifier:"",
             description: "",
             start_date:"",
-            end_date: ""
+            end_date: "",
+            errors: {}
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this)
     }
 
     componentWillReceiveProps(nextProps){
+        if (nextProps.errors) {
+            this.setState({errors:nextProps.errors})
+        }
         const {
             id,
             projectName,
@@ -62,6 +66,9 @@ class UpdateProject extends Component {
     }
     
     render() {
+
+        const {errors} = this.state;
+
         return (
             <div className="container" id="spacefromtop">
                 <div className="row justify-content-center">
@@ -82,11 +89,14 @@ class UpdateProject extends Component {
                                             <div className="input-group-prepend">
                                                 <div className="input-group-text"><i className="fas fa-file-signature"></i></div>
                                             </div>
-                                            <input type="text" className={classnames("form-control")} 
+                                            <input type="text" className={classnames("form-control", {"is-invalid": errors.projectName})} 
                                             name="projectName"  
                                             value={this.state.projectName}                                         
                                             onChange={this.onChange} 
-                                            placeholder="Project Name"/>                                 
+                                            placeholder="Project Name"/>
+                                            {
+                                                errors.projectName && (<div className="invalid-feedback">{errors.projectName}</div>)
+                                            }                                 
                                         </div>
                                         
                                     </div>
@@ -99,7 +109,7 @@ class UpdateProject extends Component {
                                             name="projectIdentifier"  
                                             value ={this.state.projectIdentifier}                                        
                                             onChange={this.onChange}
-                                            placeholder="Project Identifier"/>                                            
+                                            placeholder="Project Identifier"/>                                             
                                         </div>
                                     </div>
 
@@ -108,10 +118,13 @@ class UpdateProject extends Component {
                                             <div className="input-group-prepend">
                                                 <div className="input-group-text"><i className="far fa-comment-alt"></i></div>
                                             </div>
-                                            <textarea className={classnames("form-control")} 
+                                            <textarea className={classnames("form-control", {"is-invalid": errors.description})} 
                                             placeholder="Description" name="description"  
                                             value = {this.state.description}                                        
-                                            onChange={this.onChange}></textarea>                                           
+                                            onChange={this.onChange}></textarea>   
+                                            {
+                                                errors.description && (<div className="invalid-feedback">{errors.description}</div>)
+                                            }                                             
                                         </div>
                                     </div>
                                 
@@ -156,11 +169,13 @@ class UpdateProject extends Component {
 UpdateProject.propTypes = {
     getProject:PropTypes.func.isRequired,
     createProject: PropTypes.func.isRequired,
-    project: PropTypes.object.isRequired
+    project: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
-    project: state.project.project
+    project: state.project.project,
+    errors: state.errors
 })
 
 export default connect(mapStateToProps, {getProject, createProject})(UpdateProject);
