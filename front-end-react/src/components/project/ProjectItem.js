@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import {Link} from "react-router-dom";
+import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {deleteProject} from "../../actions/projectAction"
 
-export default class ProjectItem extends Component {
+class ProjectItem extends Component {
+
+    onDeleteClick = id => {
+        this.props.deleteProject(id);
+    }
+
     render() {
         const {project} = this.props;
         
@@ -16,7 +24,7 @@ export default class ProjectItem extends Component {
                     <p className="card-text">{project.description}</p>
                     <a href="#" className="btn btn-primary">Project Board</a>&nbsp;
                     <Link to={`/updateProject/${project.projectIdentifier}`} className="btn btn-success"><i className="fas fa-pen"></i> Update</Link>&nbsp;
-                    <a className="btn icon-btn btn-warning" href="#">
+                    <a className="btn icon-btn btn-warning" onClick={this.onDeleteClick.bind(this, project.projectIdentifier)}>
                     <span><i className="fas fa-trash-alt"></i></span> Delete</a>
                 </div>
                 <div className="card-footer text-dark bg-light"><span className="badge badge-primary">
@@ -27,3 +35,9 @@ export default class ProjectItem extends Component {
         )
     }
 }
+
+ProjectItem.propTypes = {
+    deleteProject: PropTypes.func.isRequired
+};
+
+export default connect(null, {deleteProject})(ProjectItem)
