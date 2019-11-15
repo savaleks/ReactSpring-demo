@@ -1,7 +1,9 @@
 package com.vilniurun.reactspringdemo.services;
 
+import com.vilniurun.reactspringdemo.domain.Backlog;
 import com.vilniurun.reactspringdemo.domain.Project;
 import com.vilniurun.reactspringdemo.exceptions.ProjectException;
+import com.vilniurun.reactspringdemo.repositories.BacklogRepository;
 import com.vilniurun.reactspringdemo.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,10 +14,24 @@ public class ProjectService {
     @Autowired
     private ProjectRepository projectRepository;
 
+    @Autowired
+    private BacklogRepository backlogRepository;
+
     public Project saveOrUpdateProject(Project project){
 
+        String getProjectByIdentifier = project.getProjectIdentifier().toLowerCase();
+
         try {
-            project.setProjectIdentifier(project.getProjectIdentifier().toLowerCase());
+            project.setProjectIdentifier(getProjectByIdentifier);
+            if (project.getId()==null){
+                Backlog backlog = new Backlog();
+                project.setBacklog(backlog);
+                backlog.setProject(project);
+                backlog.setProjectIdentifier(getProjectByIdentifier);
+            }
+            if (project.getId() != null){
+                project.setBacklog(backlogRepository.findByProjectIdentifier(getProjectByIdentifier));
+            }
             return projectRepository.save(project);
         } catch (Exception e){
             throw new ProjectException("Project with ID " + project.getProjectIdentifier().toLowerCase() + " already exists.");
