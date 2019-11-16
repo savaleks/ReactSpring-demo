@@ -1,6 +1,7 @@
 package com.vilniurun.reactspringdemo.web;
 
 import com.vilniurun.reactspringdemo.domain.Project;
+import com.vilniurun.reactspringdemo.services.ErrorService;
 import com.vilniurun.reactspringdemo.services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,15 +22,13 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
+    @Autowired
+    private ErrorService errorService;
+
     @PostMapping("")
     public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult result){
-        if (result.hasErrors()){
-            Map<String, String> mapError = new HashMap<>();
-            for (FieldError error:result.getFieldErrors()){
-                mapError.put(error.getField(), error.getDefaultMessage());
-            }
-            return new ResponseEntity<Map<String, String>>(mapError, HttpStatus.BAD_REQUEST);
-        }
+        ResponseEntity<?> errorMap = errorService.mapValidationService(result);
+        if (errorMap != null) return errorMap;
         Project project1 = projectService.saveOrUpdateProject(project);
         return new ResponseEntity<Project>(project, HttpStatus.CREATED);
     }
