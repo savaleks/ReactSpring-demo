@@ -1,12 +1,13 @@
 package com.vilniurun.reactspringdemo.services;
 
 import com.vilniurun.reactspringdemo.domain.Backlog;
-import com.vilniurun.reactspringdemo.domain.Project;
 import com.vilniurun.reactspringdemo.domain.ProjectTask;
 import com.vilniurun.reactspringdemo.repositories.BacklogRepository;
 import com.vilniurun.reactspringdemo.repositories.ProjectTaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ProjectTaskService {
@@ -35,5 +36,9 @@ public class ProjectTaskService {
             projectTask.setStatus("TO_DO");
         }
         return projectTaskRepository.save(projectTask);
+    }
+
+    public List<ProjectTask> findBacklogById(String backlog_id) {
+        return projectTaskRepository.findByProjectIdentifierOrderByPriority(backlog_id);
     }
 }
