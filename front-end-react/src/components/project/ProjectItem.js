@@ -22,7 +22,7 @@ class ProjectItem extends Component {
                 <div className="card-body">
                     <h5 className="card-title">{project.projectName}</h5>
                     <p className="card-text">{project.description}</p>
-                    <a href="#" className="btn btn-primary">Project Board</a>&nbsp;
+                    <Link to={`/projectBoard/${project.projectIdentifier}`} className="btn btn-primary">Project Board</Link>&nbsp;
                     <Link to={`/updateProject/${project.projectIdentifier}`} className="btn btn-success"><i className="fas fa-pen"></i> Update</Link>&nbsp;
                     <a className="btn icon-btn btn-warning" onClick={this.onDeleteClick.bind(this, project.projectIdentifier)}>
                     <span><i className="fas fa-trash-alt"></i></span> Delete</a>
