@@ -35,11 +35,18 @@ class AddProjecTask extends Component {
             priority : this.state.priority,
             dueDate : this.state.dueDate
         }
-        console.log(newTask);
+        this.props.addProjectTask(this.state.projectIdentifier, newTask, this.props.history)
+    }
+
+    componentWillReceiveProps(nextProps){
+        if (nextProps.errors) {
+            this.setState({errors: nextProps.errors})
+        }
     }
 
     render() {
         const {id} = this.props.match.params;
+        const {errors} = this.state;
         return (
             <div className="container register-form">&nbsp;
                 <div className="m-auto text-left">
@@ -59,16 +66,17 @@ class AddProjecTask extends Component {
                         <div className="col-md-6">
                             <div className="form-group">
                                 <input type="text" 
-                                className="form-control" 
+                                className={classnames("form-control", {"is-invalid":errors.summary})} 
                                 placeholder="Project Task Summary *"
                                 name="summary"
                                 value={this.state.summary}
                                 onChange={this.onChange}/>
+                                {errors.summary && (<div className="invalid-feedback">{errors.summary}</div>)}
                             </div>
                             <div className="form-group">
                                 <textarea type="text" className="form-control" 
                                 name="acceptanceCriteria"
-                                placeholder="Acceptance Criteria *" 
+                                placeholder="Acceptance Criteria" 
                                 value={this.state.acceptanceCriteria}
                                 onChange={this.onChange}/>
                             </div>
@@ -113,7 +121,12 @@ class AddProjecTask extends Component {
 }
 
 AddProjecTask.propTypes = {
-    addProjectTask: PropTypes.func.isRequired
+    addProjectTask: PropTypes.func.isRequired,
+    errors: PropTypes.object.isRequired
 }
 
-export default connect(null, {addProjectTask})(AddProjecTask)
+const mapStateToProps = state => ({
+    errors: state.errors
+})
+
+export default connect(mapStateToProps, {addProjectTask})(AddProjecTask)
