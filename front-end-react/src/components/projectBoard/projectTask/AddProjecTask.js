@@ -90,11 +90,11 @@ class AddProjecTask extends Component {
                         </div>
                         <div className="col-md-6">
                             <div className="form-group">
-                            <label>Select Priority (select one):</label>
+                            <label>Priority (select one):</label>
                             <select className="form-control" name="priority" 
                             value={this.state.priority}
                             onChange={this.onChange}>
-                              <option value = {0}>Select Priority</option>
+                              <option value = {0}>~~ Select ~~</option>
                               <option value = {1}>High</option>
                               <option value = {2}>Medium</option>
                               <option value = {3}>Low</option>
@@ -104,7 +104,7 @@ class AddProjecTask extends Component {
                             <label>Status (select one):</label>
                             <select className="form-control" name="status" value={this.state.status}
                             onChange={this.onChange}>
-                              <option value="">Select Status</option>
+                              <option value="">~~ Select ~~</option>
                               <option value="TO_DO">TO DO</option>
                               <option value="IN_PROGRESS">IN PROGRESS</option>
                               <option value="DONE">DONE</option>
