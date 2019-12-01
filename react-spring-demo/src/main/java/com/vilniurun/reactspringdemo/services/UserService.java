@@ -5,6 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.vilniurun.reactspringdemo.domain.User;
+import com.vilniurun.reactspringdemo.exceptions.EmailExistException;
 import com.vilniurun.reactspringdemo.repositories.UserRepository;
 
 @Service
@@ -17,7 +18,13 @@ public class UserService {
 	private BCryptPasswordEncoder passEncoder;
 	
 	public User saveUser(User newUser) {
-		newUser.setPassword(passEncoder.encode(newUser.getPassword()));
-		return userRepository.save(newUser);
+		try {
+			newUser.setPassword(passEncoder.encode(newUser.getPassword()));
+			newUser.setEmail(newUser.getEmail());
+			return userRepository.save(newUser);
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new EmailExistException("Email " + newUser.getEmail() + " already exists.");
+		}
 	}
 }
