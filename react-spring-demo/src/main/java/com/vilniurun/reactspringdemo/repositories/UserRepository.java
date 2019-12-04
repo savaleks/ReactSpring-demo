@@ -8,4 +8,6 @@ import com.vilniurun.reactspringdemo.domain.User;
 @Repository
 public interface UserRepository extends CrudRepository<User, Long>{
 	
+	User findByEmail(String email);
+	User getById(Long id);
 }

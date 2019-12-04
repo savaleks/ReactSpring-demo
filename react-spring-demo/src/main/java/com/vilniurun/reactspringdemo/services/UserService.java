@@ -21,6 +21,7 @@ public class UserService {
 		try {
 			newUser.setPassword(passEncoder.encode(newUser.getPassword()));
 			newUser.setEmail(newUser.getEmail());
+			newUser.setConfirmPassword("");
 			return userRepository.save(newUser);
 		} catch (Exception e) {
 			// TODO: handle exception
