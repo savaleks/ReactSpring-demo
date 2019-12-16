@@ -41,6 +41,12 @@ public class Project {
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project")
     @JsonIgnore
     private Backlog backlog;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private User user;
+    
+    private String projectLeader;
 
     @PrePersist
     protected void onCreate(){
