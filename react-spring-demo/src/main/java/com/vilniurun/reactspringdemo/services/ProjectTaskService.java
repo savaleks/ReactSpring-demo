@@ -23,12 +23,14 @@ public class ProjectTaskService {
 
     @Autowired
     private ProjectRepository projectRepository;
+    
+    @Autowired
+    private ProjectService projectService;
 
-    public ProjectTask addProjectTask(String projectIdentifier, ProjectTask projectTask){
+    public ProjectTask addProjectTask(String projectIdentifier, ProjectTask projectTask, String username){
 
         // add projectTask to specific project
-        try {
-            Backlog backlog = backlogRepository.findByProjectIdentifier(projectIdentifier);
+            Backlog backlog = projectService.findByProjectIdentifier(projectIdentifier, username).getBacklog(); //backlogRepository.findByProjectIdentifier(projectIdentifier);
 
             projectTask.setBacklog(backlog);
             Integer BacklogSequence = backlog.getPTSequence();
@@ -37,24 +39,17 @@ public class ProjectTaskService {
             projectTask.setProjectSequence(projectIdentifier + "-" + BacklogSequence);
             projectTask.setProjectIdentifier(projectIdentifier);
 
-            if (projectTask.getPriority() == 0 || projectTask.getPriority() == null){
+            if ( projectTask.getPriority() == null || projectTask.getPriority() == 0){
                 projectTask.setPriority(3);
             }
             if (projectTask.getStatus() == ("") || projectTask.getStatus() == null){
                 projectTask.setStatus("TO_DO");
             }
             return projectTaskRepository.save(projectTask);
-        } catch (Exception e){
-            throw new ProjectNotFoundException("Project Not Found Exception.");
-        }
-
     }
 
-    public List<ProjectTask> findBacklogById(String backlog_id) {
-        Project project = projectRepository.findByProjectIdentifier(backlog_id);
-        if (project == null){
-            throw new ProjectNotFoundException("Project with id: " + backlog_id + " doesn't exist.");
-        }
+    public List<ProjectTask> findBacklogById(String backlog_id, String username) {
+        projectService.findByProjectIdentifier(backlog_id, username);
         return projectTaskRepository.findByProjectIdentifierOrderByPriority(backlog_id);
     }
 
