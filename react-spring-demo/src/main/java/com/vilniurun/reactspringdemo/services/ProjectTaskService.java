@@ -53,12 +53,10 @@ public class ProjectTaskService {
         return projectTaskRepository.findByProjectIdentifierOrderByPriority(backlog_id);
     }
 
-    public ProjectTask findProjectTaskByProjectSequence(String backlog_id, String projectTask_id){
+    public ProjectTask findProjectTaskByProjectSequence(String backlog_id, String projectTask_id, String username){
         // checking if backlog exist in our database
-        Backlog backlog = backlogRepository.findByProjectIdentifier(backlog_id);
-        if (backlog == null){
-            throw new ProjectNotFoundException("Project with id: " + backlog_id + " doesn't exist.");
-        }
+        projectService.findByProjectIdentifier(backlog_id, username);
+
         // checking if project task exist in our database
         ProjectTask projectTask = projectTaskRepository.findByProjectSequence(projectTask_id);
         if (projectTask == null){
@@ -72,15 +70,15 @@ public class ProjectTaskService {
     }
 
     // update project task
-    public ProjectTask updateByProjectSequence(ProjectTask updateTask, String backlog_id, String projectTask_id){
-        ProjectTask projectTask = findProjectTaskByProjectSequence(backlog_id, projectTask_id);
+    public ProjectTask updateByProjectSequence(ProjectTask updateTask, String backlog_id, String projectTask_id, String username){
+        ProjectTask projectTask = findProjectTaskByProjectSequence(backlog_id, projectTask_id, username);
         projectTask = updateTask;
         return projectTaskRepository.save(projectTask);
     }
 
     // delete project
-    public void deleteProjectTaskByProjectSequence(String backlog_id, String projectTask_id){
-        ProjectTask projectTask = findProjectTaskByProjectSequence(backlog_id, projectTask_id);
+    public void deleteProjectTaskByProjectSequence(String backlog_id, String projectTask_id, String username){
+        ProjectTask projectTask = findProjectTaskByProjectSequence(backlog_id, projectTask_id, username);
         projectTaskRepository.delete(projectTask);
     }
 }
