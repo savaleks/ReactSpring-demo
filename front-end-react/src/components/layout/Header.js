@@ -6,7 +6,7 @@ export default class Header extends Component {
         return (
             <nav className="navbar navbar-expand-lg navbar-dark mx-background-top-linear">
                 <div className="container">
-                <a className="navbar-brand" href="#"> SAVALEKS.COM</a>
+                <Link to="/" className="navbar-brand"> SAVALEKS.COM</Link>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" 
                 data-target="#navbarResponsive" aria-controls="navbarResponsive"
                  aria-expanded="false" aria-label="Toggle navigation">
@@ -17,9 +17,9 @@ export default class Header extends Component {
                     <ul className="navbar-nav ml-auto">
 
                     <li className="nav-item active">
-                        <a className="nav-link" href="#">Home
+                        <Link to="/" className="nav-link">Home
                         <span className="sr-only">(current)</span>
-                        </a>
+                        </Link>
                     </li>
 
                     <li className="nav-item">
@@ -35,11 +35,11 @@ export default class Header extends Component {
                     </li>
 
                     <li className="nav-item">
-                        <a className="nav-link" href="#">Sign In</a>
+                        <Link to="/register" className="nav-link">Sign In</Link>
                     </li>
 
                     <li className="nav-item">
-                        <a className="nav-link" href="#">Log In</a>
+                    <Link to="/login" className="nav-link">Log In</Link>
                     </li>
                     </ul>
                 </div>
