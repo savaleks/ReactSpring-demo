@@ -40,9 +40,9 @@ public class User implements UserDetails{
 	@NotBlank(message = "email is required")
 	@Column(unique = true)
 	private String email;
-	@NotBlank(message = "Pleases enter your name")
+	@NotBlank(message = "Please enter your first name")
 	private String firstName;
-	@NotBlank(message = "Please enter your surname")
+	@NotBlank(message = "Please enter your last name")
 	private String lastName;
 	@NotBlank(message = "Password is required")
 	private String password;
