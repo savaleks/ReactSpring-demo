@@ -1,7 +1,35 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import  PropTypes from "prop-types";
+import {connect} from "react-redux";
+import classnames from "classnames";
+import {login} from "../../actions/securityAction"
 
 class Login extends Component {
+
+  constructor(){
+    super();
+    this.state = {
+      email: "",
+      password: ""
+    };
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  onChange(e){
+    this.setState({[e.target.name]:e.target.value})
+  }
+
+  onSubmit(e){
+    e.preventDefault();
+    const LoginRequest = {
+      email: this.state.email,
+      password: this.state.password
+    };
+    this.props.login(LoginRequest);
+  }
+
   render() {
     return (
       <div className="login-popup-wrap new_login_popup">
@@ -11,30 +39,31 @@ class Login extends Component {
           </h4>
         </div>
 
-        <form id="loginMember" role="form" action="" method="post">
+        <form onSubmit = {this.onSubmit}>
           <div className="form-group">
             <input
-              type="text"
+              type="email"
               className="form-control"
-              id="user_id"
-              placeholder="e-mail"
-              name="user_id"
+              placeholder="email"
+              name="email"
+              value = {this.state.email}
+              onChange = {this.onChange}
             />
           </div>
           <div className="form-group">
             <input
               type="password"
               className="form-control"
-              id="password"
               placeholder="Password"
               name="password"
+              value = {this.state.password}
+              onChange = {this.onChange}
             />
           </div>
           <button
             type="submit"
             className="btn btn-primary login-popup-btn"
             name="submit"
-            value="1"
           >
             Login
           </button>
@@ -52,4 +81,14 @@ class Login extends Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+  security:state.security,
+  errors: state.errors
+})
+
+export default connect(mapStateToProps, {login}) (Login);
