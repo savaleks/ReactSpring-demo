@@ -11,7 +11,8 @@ class Login extends Component {
     super();
     this.state = {
       email: "",
-      password: ""
+      password: "",
+      errors: {}
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -30,7 +31,20 @@ class Login extends Component {
     this.props.login(LoginRequest);
   }
 
+  componentWillReceiveProps(nextProps){
+
+    if (nextProps.security.validToken) {
+      this.props.history.push("/dashboard");
+    }
+    if (nextProps.errors) {
+      this.setState({errors: nextProps.errors});
+    }
+  }
+
   render() {
+
+    const {errors} = this.state;
+
     return (
       <div className="login-popup-wrap new_login_popup">
         <div className="login-popup-heading text-center">
@@ -43,22 +57,28 @@ class Login extends Component {
           <div className="form-group">
             <input
               type="email"
-              className="form-control"
+              className={classnames("form-control", {"is-invalid": errors.email})}
               placeholder="email"
               name="email"
               value = {this.state.email}
               onChange = {this.onChange}
             />
+            {
+              errors.email && (<div className="invalid-feedback">{errors.email}</div>)
+            }
           </div>
           <div className="form-group">
             <input
               type="password"
-              className="form-control"
+              className={classnames("form-control", {"is-invalid": errors.password})}
               placeholder="Password"
               name="password"
               value = {this.state.password}
               onChange = {this.onChange}
             />
+            {
+              errors.password && (<div className="invalid-feedback">{errors.password}</div>)
+            }
           </div>
           <button
             type="submit"
@@ -83,7 +103,8 @@ class Login extends Component {
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  security: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
