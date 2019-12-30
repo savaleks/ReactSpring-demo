@@ -32,6 +32,11 @@ class Header extends Component {
 
         const userIsNotAuthenticated = (
             <div className="collapse navbar-collapse" id="navbarResponsive">
+            <li className="nav-item active">
+                <Link to="/" className="nav-link">Home
+                    <span className="sr-only">(current)</span>
+                </Link>
+            </li>
             <li className="nav-item">
                 <Link to="/about" className="nav-link">About</Link>
             </li>
@@ -64,12 +69,6 @@ class Header extends Component {
                 <div className="collapse navbar-collapse" id="navbarResponsive">
 
                     <ul className="navbar-nav ml-auto">
-
-                    <li className="nav-item active">
-                        <Link to="/" className="nav-link">Home
-                        <span className="sr-only">(current)</span>
-                        </Link>
-                    </li>
                     {headerLinks}
                     </ul>
                 </div>
