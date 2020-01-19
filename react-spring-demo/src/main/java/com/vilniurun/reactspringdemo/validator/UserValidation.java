@@ -26,6 +26,4 @@ public class UserValidation implements Validator{
 			errors.rejectValue("confirmPassword", "Match", "Password must match.");
 		}
 	}
-
-	
 }
