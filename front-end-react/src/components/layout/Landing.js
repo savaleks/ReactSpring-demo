@@ -11,17 +11,20 @@ class Landing extends Component {
       }
     render() {
         return (
-            <div className="landing">
+            <div className="landing"><br/>
                 <div className="container">
                 <div className="row">
                     <div className="col-md-12 text-center">
                         <h1>Personal Project Management Tool</h1>
-                        <h2>Create your own account to start project.</h2>
+                        <h2 className="text-success">Create your own account to start project.</h2><br/>
                         
                             <Link to="/register" className="btn btn-lg btn-primary mr-2">Sign In</Link>
                     
-                            <Link to="/login" className="btn btn-lg btn-secondary mr-2">Log In</Link>
+                            <Link to="/login" className="btn btn-lg btn-success mr-2">Log In</Link>
                     </div>
+                    </div><br/>
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>

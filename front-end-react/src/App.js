@@ -19,6 +19,7 @@ import setJWTToken from "./securityUtils/setJWTToken";
 import { SET_CURRENT_USER } from './actions/types';
 import {logout} from "./actions/securityAction";
 import SecuredRoute from "./securityUtils/secureRoute";
+import Footer from "./components/layout/Footer";
 
 const jwtToken = localStorage.jwtToken
 
@@ -60,7 +61,7 @@ function App() {
         <SecuredRoute exact path="/addProjectTask/:id" component={AddProjecTask}/>
         <SecuredRoute exact path="/updateProjectTask/:backlog_id/:projectTask_id" component={UpdateProjectTask}/>
         {
-        //  <Footer/>
+        <Footer/>
         }
         </Switch>
       </div>

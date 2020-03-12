@@ -53,10 +53,8 @@ class Login extends Component {
 
     return (
       <div className="login-popup-wrap new_login_popup">
-        <div className="login-popup-heading text-center">
-          <h4>
-            <i className="fa fa-lock" aria-hidden="true"></i> Login{" "}
-          </h4>
+        <div className="login-popup-heading text-center"><br/>
+          <h2>LOGIN</h2><br/>
         </div>
 
         <form onSubmit = {this.onSubmit}>
@@ -64,7 +62,7 @@ class Login extends Component {
             <input
               type="email"
               className={classnames("form-control", {"is-invalid": errors.email})}
-              placeholder="email"
+              placeholder="Email"
               name="email"
               value = {this.state.email}
               onChange = {this.onChange}
@@ -94,13 +92,9 @@ class Login extends Component {
             Login
           </button>
         </form>
-        <div className="form-group text-center">
-          <a className="pwd-forget" href="#" id="open_forgotPassword">
-            Forget Password
-          </a>
-        </div>
+        <br/>
         <div className="text-center">
-          Not registered yet?<a href="#">click here</a>
+          Not registered yet?<a href="#"> click here</a>
         </div>
       </div>
     );

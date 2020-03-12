@@ -51,10 +51,10 @@ class Register extends Component {
     const { errors } = this.state;
 
     return (
-      <div className="container register-form">
+      <div className="container register-form"><br/>
         <div className="form">
-          <div className="note">
-            <p>This is a simpleRegister Form</p>
+          <div className="h2">
+            <p>REGISTER FORM</p>
           </div>
           <form onSubmit={this.onSubmit}>
             <div className="form-content">
